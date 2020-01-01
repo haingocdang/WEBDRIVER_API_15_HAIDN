@@ -61,7 +61,7 @@ public class Topic_01_CheckEnvironment {
 	@AfterClass
 	public void afterClass() {
 		
-		// New command to commit new
+		// New command to commit new new
 		driver.quit();
 	}
 

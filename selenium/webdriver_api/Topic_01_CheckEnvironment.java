@@ -33,6 +33,7 @@ public class Topic_01_CheckEnvironment {
 	@Test
 	public void TC_01_ValidateCurrentUrl() {
 		// Login Page Url matching
+		
 		String loginPageUrl = driver.getCurrentUrl();
 		
 		// In ra console cho user thay dc result test

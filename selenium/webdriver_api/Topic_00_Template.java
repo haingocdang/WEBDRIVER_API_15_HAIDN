@@ -30,12 +30,13 @@ public class Topic_00_Template {
 
 	@Test
 	public void TC_01_() {
-		
+		driver.get("12345");
 	}
 
 	@Test
 	public void TC_02_() {
-		
+		driver.get("45678");
+
 	}
 
 	@Test

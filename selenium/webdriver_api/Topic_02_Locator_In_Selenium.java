@@ -26,7 +26,7 @@ public class Topic_02_Locator_In_Selenium {
 	//	driver = new FirefoxDriver();
 	
 		// Khoi tao Chrome
-		System.setProperty("webdriver.chrome.driver", ".\\libraries\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", ".\\libraries\\chromedriver_chrome79.exe");
 		driver=new ChromeDriver();
 		
 		// Cho cho element dc hien thi truoc khi tuong tac trong 30s

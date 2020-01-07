@@ -97,6 +97,9 @@ public class Topic_04_05_Xpath_Css {
 		int randomNumber= randomNumber();
 		
 		driver.findElement(By.xpath("//div[@class='col-1 new-users']//a[@title='Create an Account']")).click();
+
+		// Wait for page load
+		Thread.sleep(5000);
 		driver.findElement(By.xpath("//input[@id='firstname']")).sendKeys(firstName);
 		driver.findElement(By.xpath("//input[@id='middlename']")).sendKeys(middleName);
 		driver.findElement(By.xpath("//input[@id='lastname']")).sendKeys(lastName);
@@ -113,7 +116,7 @@ public class Topic_04_05_Xpath_Css {
 		Assert.assertTrue(driver.findElement(By.xpath("//h1[text()='You are now logged out']")).isDisplayed());
 		
 		//Sleep
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 		String url = driver.getCurrentUrl();
 		Assert.assertEquals(url, "http://live.demoguru99.com/index.php/");
 	}
@@ -121,6 +124,7 @@ public class Topic_04_05_Xpath_Css {
 	
 	@Test
 	public void TC_06_LogiWithValidEmailAndPass() {
+		
 		driver.findElement(By.xpath("//input[@id='email']")).sendKeys(emailAddress+"@yopmail.com");
 		
 		driver.findElement(By.xpath("//input[@id='pass']")).sendKeys(password);

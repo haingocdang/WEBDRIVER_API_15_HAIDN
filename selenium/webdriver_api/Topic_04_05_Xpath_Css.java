@@ -1,33 +1,32 @@
 package webdriver_api;
 
-import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.http.util.Asserts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-// import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
-public class Topic_02_Locator_In_Selenium {
+public class Topic_04_05_Xpath_Css {
 	// Khai bao 1 bien driver dai dien cho Selenium Driver
 	WebDriver driver;
-
+	String firstName="Hai";
+	String lastName="Dang";
+	String middleName="Ngoc";
+	String emailAddress="haidang1232";
+	String password="123456";
+	
 	//Pre-Condition
 	@BeforeClass
 	public void beforeClass() {
 		// Khoi tao FF
-	//	driver = new FirefoxDriver();
-	
-		// Khoi tao Chrome
-		System.setProperty("webdriver.chrome.driver", ".\\libraries\\chromedriver_chrome79.exe");
-		driver=new ChromeDriver();
+		driver = new FirefoxDriver();
 		
 		// Cho cho element dc hien thi truoc khi tuong tac trong 30s
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -36,81 +35,118 @@ public class Topic_02_Locator_In_Selenium {
 		driver.manage().window().maximize();
 		
 	}
-
-	@Test
-	public void TC_01_Locator() {
-		driver.get("http://live.demoguru99.com/index.php/customer/account/login/");
+	
+	@BeforeMethod
+	public void beforemethod() {
+		// TODO Auto-generated method stub
+		driver.get("http://live.demoguru99.com/");
+		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 		
-//		<input 
-//		id="email" 
-//		class="input-text required-entry validate-email" 
-//		type="email" title="Email Address" 
-//		value="" name="login[username]"
-//		spellcheck="false" 
-//		autocorrect="off" 
-//		autocapitalize="off"/>
-		
-		// Thao tac vs Email 
-		//ID
-		driver.findElement(By.id("email")).sendKeys("Autotest@gmail.com");
-		driver.findElement(By.id("pass")).sendKeys("123456");
-		
-		//NAME
-		driver.findElement(By.name("send")).click();
-		
-		//CLASS (NEWSLETTER)
-		driver.findElement(By.className("validate-email")).clear();
-		driver.findElement(By.className("validate-email")).sendKeys("name@gmail.com");
-		
-		//TAG NAME (Tim bao nhieu link va in ra)
-		//Dem bao nhieu Element tren page
-		List <WebElement> links= driver.findElements(By.tagName("a"));
-		System.out.println("Tong so link="+links.size());
-		for(WebElement link:links) {
-			System.out.println("Value="+link.getAttribute("href"));
-		}
-		
-		// LINK TEXT (Link)
-		/*
-		driver.findElement(By.linkText("ORDERS AND RETURNS")).click(); //Chu thuong se khong dectect dc
-		
-		// PARTIAL LINK TEXT (link)
-		driver.findElement(By.partialLinkText("ORDERS AND")).click();//Chu thuong se khong dectect dc
-		*/
-		//driver.findElement(By.partialLinkText("and Returns")).click();
-		
-		//CSS
-		driver.findElement(By.cssSelector("input[name='login[username]']")).clear();
-		driver.findElement(By.cssSelector("input[name='login[username]']")).sendKeys("css_name@gmail.com"); //NAME
-		
-		driver.findElement(By.cssSelector(".validate-email")).clear();// CLASS
-		driver.findElement(By.cssSelector(".validate-email")).sendKeys("css_class@gmail.com");// CLASS
-		
-		System.out.println("The a dung css="+ driver.findElements(By.cssSelector("a")).size()); //TAG NAME
-		// driver.findElement(By.cssSelector("a[href='http://live.demoguru99.com/index.php/sales/guest/form/']")).click();// LINK TEXT
-		
-		//XPATH
-		driver.findElement(By.xpath("//input[@id='email']")).clear();; // id
-		driver.findElement(By.xpath("//input[@id='email']")).sendKeys("xpath_id@gmail.com"); // id
-		
-		driver.findElement(By.xpath("//input[@name='login[username]']")).clear(); //NAME
-		driver.findElement(By.xpath("//input[@name='login[username]']")).sendKeys("xpath_name@gmail.com"); //NAME
-		
-		driver.findElement(By.xpath("//input[@class='input-text required-entry validate-email']")).clear();
-		driver.findElement(By.xpath("//input[@class='input-text required-entry validate-email']")).sendKeys("xpath_class@gmail.com");// CLASS
-		
-		System.out.println("The a dung XPATH="+ driver.findElements(By.xpath("//a")).size()); //TAG NAME
-		driver.findElement(By.xpath("//a[@href='http://live.demoguru99.com/index.php/sales/guest/form/']")).click();// LINK TEXT
-		
-		
-	//	driver.findElement(By.name("login[username]")).sendKeys("Autotest@gmail.com");
-		
-	//	driver.findElement(By.className("input-text required-entry validate-email")).sendKeys("");
 	}
 
+	@Test
+	public void TC_01_LogiWithEmailAndPasswordEmpty() {
+		driver.findElement(By.xpath(".//*[@id='send2']")).click();
+		
+		String emailErrorMesg= driver.findElement(By.xpath("//div[@id='advice-required-entry-email']")).getText();
+		Assert.assertEquals(emailErrorMesg, "This is a required field.");
+		
+		String passErrorMsg=driver.findElement(By.xpath("//div[@id='advice-required-entry-pass']")).getText();
+		Assert.assertEquals(passErrorMsg, "This is a required field.");
+	}
+
+	@Test
+	public void TC_02_LoginWithInvalidEmail() {
+		driver.findElement(By.xpath("//input[@id='email']")).sendKeys("12344123@12365.1236");
+		
+		driver.findElement(By.xpath("//button[@id='send2']")).click();
+		
+		String validEmailErrorMsg=driver.findElement(By.xpath("//div[@id='advice-validate-email-email']")).getText();
+		Assert.assertEquals(validEmailErrorMsg, "Please enter a valid email address. For example johndoe@domain.com.");
+		
+	}
+
+	@Test
+	public void TC_03_LogiWithPassLessThan6Chars() {
+		driver.findElement(By.xpath("//input[@id='email']")).sendKeys("automation@gmail.com");
+		
+		driver.findElement(By.xpath("//input[@id='pass']")).sendKeys("123");
+		
+		driver.findElement(By.xpath("//button[@id='send2']")).click();
+		
+		String validPassErrorMsg=driver.findElement(By.xpath("//div[@id='advice-validate-password-pass']")).getText();
+		Assert.assertEquals(validPassErrorMsg, "Please enter 6 or more characters without leading or trailing spaces.");
+
+	}
+
+	@Test
+	public void TC_04_LogiWithInCorrectEmailAndPass() {
+		driver.findElement(By.xpath("//input[@id='email']")).sendKeys("automation@gmail.com");
+		
+		driver.findElement(By.xpath("//input[@id='pass']")).sendKeys("123123123");
+		
+		driver.findElement(By.xpath("//button[@id='send2']")).click();
+		
+		String emailandpassErrorMsg=driver.findElement(By.xpath("//li[@class='error-msg']//span")).getText();
+		Assert.assertEquals(emailandpassErrorMsg, "Invalid login or password.");
+		
+	}
+	
+	@Test
+	public void TC_05_CreateAccount() {
+		int randomNumber= randomNumber();
+		
+		driver.findElement(By.xpath("//div[@class='col-1 new-users']//a[@title='Create an Account']")).click();
+		driver.findElement(By.xpath("//input[@id='firstname']")).sendKeys(firstName);
+		driver.findElement(By.xpath("//input[@id='middlename']")).sendKeys(middleName);
+		driver.findElement(By.xpath("//input[@id='lastname']")).sendKeys(lastName);
+		driver.findElement(By.xpath("//input[@id='email_address']")).sendKeys(emailAddress + randomNumber+"@yopmail.com" );
+		driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
+		driver.findElement(By.xpath("//input[@id='confirmation']")).sendKeys(password);
+		driver.findElement(By.xpath("//button[@title='Register']")).click();
+		
+		Assert.assertTrue(driver.findElement(By.xpath("//li[@class='success-msg']//span[text()='Thank you for registering with Main Website Store.']")).isDisplayed());
+		
+		driver.findElement(By.xpath("//div[@class='account-cart-wrapper']//span[text()='Account']")).click();
+		driver.findElement(By.xpath("//a[@title='Log Out']")).click();
+		
+		Assert.assertTrue(driver.findElement(By.xpath("//h1[text()='You are now logged out']")).isDisplayed());
+		
+		String url = driver.getCurrentUrl();
+		Assert.assertEquals(url, "http://live.demoguru99.com/index.php/");
+	}
+
+	
+	@Test
+	public void TC_06_LogiWithValidEmailAndPass() {
+		driver.findElement(By.xpath("//input[@id='email']")).sendKeys(emailAddress+"@yopmail.com");
+		
+		driver.findElement(By.xpath("//input[@id='pass']")).sendKeys(password);
+		
+		driver.findElement(By.xpath("//button[@id='send2']")).click();
+		
+		String dashboardTitle=driver.findElement(By.xpath("//div[@class='dashboard']//h1")).getText();
+		Assert.assertEquals(dashboardTitle, "MY DASHBOARD");
+		
+		String welcomeMsg=driver.findElement(By.xpath("//div[@class='welcome-msg']//strong")).getText();
+		String fullName= firstName + " " + middleName + " " + lastName;
+		
+		Assert.assertEquals(welcomeMsg, "Hello, " + fullName + "!");
+		
+		Assert.assertTrue(driver.findElement(By.xpath("//div[@class='box-account box-info']//p[contains(text(),'"+ fullName +"')]")).isDisplayed());
+				
+		Assert.assertTrue(driver.findElement(By.xpath("//div[@class='box-account box-info']//p[contains(.,'"+ emailAddress+ "@yopmail.com')]")).isDisplayed());
+	}
+	
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
+	}
+	
+	public int randomNumber() {
+		Random rand=new Random();
+		int number=rand.nextInt(100000);
+		return number;
 	}
 
 }

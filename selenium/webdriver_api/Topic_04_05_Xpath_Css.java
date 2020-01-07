@@ -93,7 +93,7 @@ public class Topic_04_05_Xpath_Css {
 	}
 	
 	@Test
-	public void TC_05_CreateAccount() {
+	public void TC_05_CreateAccount() throws InterruptedException {
 		int randomNumber= randomNumber();
 		
 		driver.findElement(By.xpath("//div[@class='col-1 new-users']//a[@title='Create an Account']")).click();
@@ -112,6 +112,8 @@ public class Topic_04_05_Xpath_Css {
 		
 		Assert.assertTrue(driver.findElement(By.xpath("//h1[text()='You are now logged out']")).isDisplayed());
 		
+		
+		Thread.sleep(3000);
 		String url = driver.getCurrentUrl();
 		Assert.assertEquals(url, "http://live.demoguru99.com/index.php/");
 	}

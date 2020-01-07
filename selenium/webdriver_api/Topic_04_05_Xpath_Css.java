@@ -112,7 +112,7 @@ public class Topic_04_05_Xpath_Css {
 		
 		Assert.assertTrue(driver.findElement(By.xpath("//h1[text()='You are now logged out']")).isDisplayed());
 		
-		
+		//Sleep
 		Thread.sleep(3000);
 		String url = driver.getCurrentUrl();
 		Assert.assertEquals(url, "http://live.demoguru99.com/index.php/");

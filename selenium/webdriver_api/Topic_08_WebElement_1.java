@@ -11,6 +11,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.openqa.selenium.support.ui.Select;
+
+//import com.sun.org.apache.bcel.internal.generic.Select;
 
 public class Topic_08_WebElement_1 {
 	// Khai bao 1 bien driver dai dien cho Selenium Driver
@@ -19,8 +22,8 @@ public class Topic_08_WebElement_1 {
 	By email= By.id("mail");
 	By education= By.id("edu");
 	By passwordBy=By.id("password");
-	By jobRole2SelectBoxBy=By.xpath("//select[@id='job2']");
 	By developmentCheckboxBy=By.xpath("//input[@value='interest_development']");
+	
 	
 	//Pre-Condition
 	@BeforeClass
@@ -43,7 +46,7 @@ public class Topic_08_WebElement_1 {
 		
 	}
 
-//	@Test
+	@Test
 	public void TC_Check_isDisplay() throws InterruptedException {
 	//	WebElement emailTextbox=driver.findElement(email);
 	//	WebElement educationTextarea=driver.findElement(education);
@@ -81,10 +84,12 @@ public class Topic_08_WebElement_1 {
 		if (isElementDisplay(email)) {
 			sendkeyToElement(email, data);
 		}
+		String value=driver.findElement(By.id("password")).getAttribute("placeholder");
+		System.out.println(value);
 	}
 
-	// @Test
-	public void TC_02_Check_Enable() {
+//	 @Test
+	public void TC_02_Check_Enable() throws InterruptedException {
 		
 /*		WebElement emailTextbox=driver.findElement(email);
 		WebElement radioAge18=driver.findElement(radioUnder18);
@@ -168,29 +173,44 @@ public class Topic_08_WebElement_1 {
 			System.out.println("Element is enabled");
 			
 		} else {
-			System.out.println("Elment is disabled");
+			System.out.println("Element is disabled");
 
 		}*/
 		Assert.assertTrue(ischeckElementEnable(email));
 		Assert.assertTrue(ischeckElementEnable(education));
 		Assert.assertTrue(ischeckElementEnable(radioUnder18));
 		Assert.assertFalse(ischeckElementEnable(passwordBy));
-		Assert.assertFalse(ischeckElementEnable(jobRole2SelectBoxBy));
+		// Assert.assertFalse(ischeckElementEnable(jobRole2SelectBoxBy));
+		
+		By job3DropdownBy=By.id("job3");
+		Assert.assertFalse(ischeckElementEnable(job3DropdownBy));
+		
+		By jobRole2SelectBoxBy=By.id("job2");
+		Select job2Select=new Select(driver.findElement(jobRole2SelectBoxBy));
+		job2Select.selectByValue("manual");
+		Thread.sleep(10000);
+	//	job2Select.
+	//	driver.findElement(jobRole2SelectBoxBy)
+		String value=job2Select.getFirstSelectedOption().getText();
+		System.out.println(value);
+	//	driver.findElement(jobRole2SelectBoxBy).get
+		
+	
 	}
 
-	@Test
+//	@Test
 	public void TC_03_IsSelected() throws InterruptedException {
 		
 		driver.findElement(radioUnder18).click();
 //		Thread.sleep(10000);
 		driver.findElement(developmentCheckboxBy).click();
-		Assert.assertTrue(ischeckElementSelecte(radioUnder18));
+		Assert.assertTrue(ischeckElementSelected(radioUnder18));
 		Assert.assertTrue(driver.findElement(developmentCheckboxBy).isSelected());
 		
 		driver.findElement(radioUnder18).click();
 		driver.findElement(developmentCheckboxBy).click();
 		Assert.assertTrue(driver.findElement(radioUnder18).isSelected());
-		Assert.assertFalse(ischeckElementSelecte(developmentCheckboxBy));
+		Assert.assertFalse(ischeckElementSelected(developmentCheckboxBy));
 		
 	}
 	
@@ -215,7 +235,7 @@ public class Topic_08_WebElement_1 {
 		}
 	}
 	
-	public boolean ischeckElementSelecte (By by) {
+	public boolean ischeckElementSelected(By by) {
 		WebElement element=driver.findElement(by);
 		if (element.isSelected()) {
 			System.out.println("Element [" + by +"] is selected");

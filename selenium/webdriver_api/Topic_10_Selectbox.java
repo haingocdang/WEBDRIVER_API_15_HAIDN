@@ -57,7 +57,7 @@ public class Topic_10_Selectbox {
 		Select jobRole2Selctbox=new Select(jobRole2Element);
 		
 		Assert.assertTrue(jobRole2Selctbox.isMultiple());
-		jobRole2Selctbox.selectByVisibleText("Automation");
+		jobRole2Selctbox.selectByVisibleText("Automation1");
 		jobRole2Selctbox.selectByVisibleText("Mobile");
 		jobRole2Selctbox.selectByVisibleText("Desktop");
 		

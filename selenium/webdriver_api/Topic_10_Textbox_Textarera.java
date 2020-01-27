@@ -24,7 +24,7 @@ public class Topic_10_Textbox_Textarera {
 	String customerID;
 	String customerName="Hai Dang";
 	String dateOfBirth="1984-05-26";
-	String address="72 Phan Dang Luu";
+	String address="72 Phan Dang Luu\n24 Phan Dang Luu";
 	By cusNameBy=By.name("name");
 	By nameBy=By.name("name");
 	By dateofBirthBY=By.id("dob");
@@ -111,6 +111,8 @@ public class Topic_10_Textbox_Textarera {
 		Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Customer Name']/following-sibling::td")).getText(), customerName);
 	//	Assert.assertEquals(driver.findElement(By.xpath("By.xpath("//td[text()='Gender']/following-sibling::td")).getText(), customerName);
 		Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Birthdate']/following-sibling::td")).getText(), dateOfBirth);
+	//	System.out.println(driver.findElement(By.xpath("//td[text()='Address']/following-sibling::td")).getText());
+		
 		Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Address']/following-sibling::td")).getText(), address);
 		Assert.assertEquals(driver.findElement(By.xpath("//td[text()='City']/following-sibling::td")).getText(), city);
 		Assert.assertEquals(driver.findElement(By.xpath("//td[text()='State']/following-sibling::td")).getText(), state);

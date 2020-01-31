@@ -1,5 +1,6 @@
 package webdriver_api;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -57,20 +58,23 @@ public class Topic_10_Selectbox {
 		Select jobRole2Selctbox=new Select(jobRole2Element);
 		
 		Assert.assertTrue(jobRole2Selctbox.isMultiple());
-		jobRole2Selctbox.selectByVisibleText("Automation1");
+		jobRole2Selctbox.selectByVisibleText("Automation");
 		jobRole2Selctbox.selectByVisibleText("Mobile");
 		jobRole2Selctbox.selectByVisibleText("Desktop");
+		List<String> arrayList=new ArrayList<String>();
+		arrayList.add("Automation");
+		arrayList.add("Mobile");
+		arrayList.add("Desktop");
 		
 		List<WebElement> options=jobRole2Selctbox.getAllSelectedOptions();
+		
+	//	List<WebElement> options=jobRole2Selctbox.getOptions();
 		for(WebElement list:options) {
-	//		Assert.assertEquals(actual, expected);
-			System.out.println(list.getText());
+			Assert.assertEquals(list.getText(), arrayList.get(options.indexOf(list)));
+			System.out.println(arrayList.get(options.indexOf(list)));
 		}
 		
-
-
-		
-
+	
 	}
 
 //	@Test

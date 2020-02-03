@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -13,6 +14,9 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import jdk.nashorn.internal.runtime.options.Options;
+
 import org.openqa.selenium.support.ui.Select;
 
 
@@ -126,22 +130,45 @@ public class Topic_10_Selectbox {
 
 	@Test
 	public void TC_03_CustomSelectbox() throws InterruptedException {
+		
 	/*	driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
-		String option="15";
 		driver.findElement(By.id("number-button")).click();
-		WebElement numberSelectbox=driver.findElement(By.id("number-menu"));
-		numberSelectbox.findElement(By.id("ui-id-" + option)).click();		
+		String option="19";
+		JavascriptExecutor je = (JavascriptExecutor) driver;
+		List <WebElement> numberSelectbox=driver.findElements(By.xpath("//ul[@id='number-menu']/li"));
+		for(WebElement number:numberSelectbox) {
+			if (number.getText().contains(option)) {
+				je.executeScript("arguments[0].scrollIntoView(true);",number);
+				Thread.sleep(2000);
+				number.click();
+				break;
+			}
+			System.out.println(number.getText());
+		}
 		Assert.assertTrue(driver.findElement(By.xpath("//span[text()='"+ option +"']")).isDisplayed());*/
 		
-		driver.get("https://ej2.syncfusion.com/angular/demos/?_ga=2.262049992.437420821.1575083417-524628264.1575083417#/material/drop-down-list/data-binding");
-		String optionFootball="Football";
+		driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
+		By numberCustomDropdownBy= By.id("number-button");
+		By allNumberBy=By.xpath("//ul[@id='number-menu']/li");
+		String expectedNumber="19";
+		selectItemsinCustomDropDown(expectedNumber, numberCustomDropdownBy, allNumberBy);
+		Assert.assertTrue(driver.findElement(By.xpath("//span[text()='"+ expectedNumber +"']")).isDisplayed());
+	/*	driver.get("https://ej2.syncfusion.com/angular/demos/?_ga=2.262049992.437420821.1575083417-524628264.1575083417#/material/drop-down-list/data-binding");
+		String optionGames="Tennis";
 		driver.findElement(By.id("games")).click();
-		WebElement gameSelectbox=driver.findElement(By.id("games_options"));
-		gameSelectbox.findElement(By.xpath("li[text()='"+ optionFootball +"']")).click();
 		
-	//	Thread.sleep(2000);
-		System.out.println(driver.findElement(By.xpath("//span/select/option[text()='Football']")).getText());
-		Assert.assertTrue(driver.findElement(By.xpath("//option[text()='"+ optionFootball +"']")).isDisplayed());
+		JavascriptExecutor je = (JavascriptExecutor) driver;
+		List<WebElement> gameSelectbox=driver.findElements(By.xpath("//ul[@id='games_options']/li"));
+		for (WebElement game:gameSelectbox) {
+			if (game.getText().contains(optionGames)) {
+				je.executeScript("arguments[0].scrollIntoView(true);",game);
+				Thread.sleep(2000);
+				game.click();
+				break;
+			}
+		}
+		System.out.println(driver.findElement(By.xpath("//select[@id='games_hidden']/option")).getText());
+		Assert.assertTrue(driver.findElement(By.id("games_hidden")).isEnabled());*/
 
 	}
 
@@ -155,6 +182,39 @@ public class Topic_10_Selectbox {
 		int number= rand.nextInt(10000);
 		
 		return number;
+	}
+	
+	public void selectItemsinCustomDropDown(String expectedOption,By parentSelectBox, By allOptions) {
+	//	String optionGames="Tennis";
+	//	driver.findElement(By.id("games")).click();
+		driver.findElement(parentSelectBox).click();
+		
+		JavascriptExecutor je = (JavascriptExecutor) driver;
+		List<WebElement> Selectbox=driver.findElements(allOptions);
+		for (WebElement option:Selectbox) {
+			if (option.getText().contains(expectedOption)) {
+				je.executeScript("arguments[0].scrollIntoView(true);",option);
+			//	Thread.sleep(2000);
+				option.click();
+				break;
+			}
+		}
+		
+		/*	driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
+		driver.findElement(By.id("number-button")).click();
+		String option="19";
+		JavascriptExecutor je = (JavascriptExecutor) driver;
+		List <WebElement> numberSelectbox=driver.findElements(By.xpath("//ul[@id='number-menu']/li"));
+		for(WebElement number:numberSelectbox) {
+			if (number.getText().contains(option)) {
+				je.executeScript("arguments[0].scrollIntoView(true);",number);
+				Thread.sleep(2000);
+				number.click();
+				break;
+			}
+			System.out.println(number.getText());
+		}*/
+		
 	}
 	
 	

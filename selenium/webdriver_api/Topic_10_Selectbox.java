@@ -203,17 +203,36 @@ public class Topic_10_Selectbox {
 		}*/
 		driver.get("http://multiple-select.wenzhixin.net.cn/examples#basic.html");
 		Thread.sleep(2000);
+		
+		List<String> monthList=new ArrayList<String>();
+		monthList.add("October");
+		monthList.add("November");
+		monthList.add("December");
 		WebElement element = driver.findElement(By.xpath("//iframe"));
 		driver.switchTo().frame(element);
 		WebElement monthSelectbox=driver.findElement(By.xpath("//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//button"));
 		//WebElement monthSelectbox=driver.findElement(By.xpath("//button[@class='ms-choice']"));
 		je.executeScript("arguments[0].click();", monthSelectbox);
 		List<WebElement> allMonths=driver.findElements(By.xpath("//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//ul/li"));
+		
 		for(WebElement month:allMonths) {
-			System.out.println(month.getText());
-		}
+			
+			for(String expectMonth:monthList) {
+				if (month.getText().contains(expectMonth)) {
+					je.executeScript("arguments[0].scrollIntoView(true);",month);
+					Thread.sleep(2000);
+					month.click();
+					
+				}
+				//System.out.println(month.getText());
+			}
+		
+	/*	for(WebElement list:options) {
+			Assert.assertEquals(list.getText(), arrayList.get(options.indexOf(list)));
+			System.out.println(arrayList.get(options.indexOf(list)));
+		}*/
 	}
-
+	}
 	@AfterClass
 	public void afterClass() {
 		driver.quit();

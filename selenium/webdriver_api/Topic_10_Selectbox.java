@@ -203,8 +203,10 @@ public class Topic_10_Selectbox {
 		}*/
 		driver.get("http://multiple-select.wenzhixin.net.cn/examples#basic.html");
 		Thread.sleep(2000);
-		//WebElement monthSelectbox=driver.findElement(By.xpath("//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//button"));
-		WebElement monthSelectbox=driver.findElement(By.xpath("//button[@class='ms-choice']"));
+		WebElement element = driver.findElement(By.xpath("//iframe"));
+		driver.switchTo().frame(element);
+		WebElement monthSelectbox=driver.findElement(By.xpath("//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//button"));
+		//WebElement monthSelectbox=driver.findElement(By.xpath("//button[@class='ms-choice']"));
 		je.executeScript("arguments[0].click();", monthSelectbox);
 		List<WebElement> allMonths=driver.findElements(By.xpath("//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//ul/li"));
 		for(WebElement month:allMonths) {

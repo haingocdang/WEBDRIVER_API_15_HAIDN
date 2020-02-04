@@ -210,8 +210,6 @@ public class Topic_10_Selectbox {
 		je.executeScript("arguments[0].click();", monthSelectbox);
 		List<WebElement> allMonths=driver.findElements(By.xpath("//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//ul/li"));
 		for(WebElement month:allMonths) {
-			Thread.sleep(2000);
-
 			System.out.println(month.getText());
 		}
 	}

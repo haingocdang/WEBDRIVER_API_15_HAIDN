@@ -1,5 +1,6 @@
 package webdriver_api;
 
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,13 +24,13 @@ import org.openqa.selenium.support.ui.Select;
 public class Topic_10_Selectbox {
 	// Khai bao 1 bien driver dai dien cho Selenium Driver
 	WebDriver driver;
-
+	JavascriptExecutor je;
 	//Pre-Condition
 	@BeforeClass
 	public void beforeClass() {
 		// Khoi tao FF
 		driver = new FirefoxDriver();
-		
+		je = (JavascriptExecutor) driver;
 		// Cho cho element dc hien thi truoc khi tuong tac trong 30s
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		
@@ -147,12 +148,12 @@ public class Topic_10_Selectbox {
 		}
 		Assert.assertTrue(driver.findElement(By.xpath("//span[text()='"+ option +"']")).isDisplayed());*/
 		
-		driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
+	/*	driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
 		By numberCustomDropdownBy= By.id("number-button");
 		By allNumberBy=By.xpath("//ul[@id='number-menu']/li");
 		String expectedNumber="19";
 		selectItemsinCustomDropDown(expectedNumber, numberCustomDropdownBy, allNumberBy);
-		Assert.assertTrue(driver.findElement(By.xpath("//span[text()='"+ expectedNumber +"']")).isDisplayed());
+		Assert.assertTrue(driver.findElement(By.xpath("//span[text()='"+ expectedNumber +"']")).isDisplayed());*/
 		
 	/*	driver.get("https://ej2.syncfusion.com/angular/demos/?_ga=2.262049992.437420821.1575083417-524628264.1575083417#/material/drop-down-list/data-binding");
 		String optionGames="Tennis";
@@ -170,7 +171,45 @@ public class Topic_10_Selectbox {
 		}
 		System.out.println(driver.findElement(By.xpath("//select[@id='games_hidden']/option")).getText());
 		Assert.assertTrue(driver.findElement(By.id("games_hidden")).isEnabled());*/
-
+		/*		driver.get("https://ej2.syncfusion.com/angular/demos/?_ga=2.262049992.437420821.1575083417-524628264.1575083417#/material/drop-down-list/data-binding");
+		String expectednGames="Tennis";
+		By gameSelectbox=By.id("games");
+		By allGameOptions=By.xpath("//ul[@id='games_options']/li");
+		selectItemsinCustomDropDown(expectednGames, gameSelectbox, allGameOptions);
+		String gameString= (String) je.executeScript("return document.querySelector(\"#games_hidden > option\").textContent");
+		Assert.assertEquals(gameString, expectednGames);*/
+		
+	/*	driver.get("https://react.semantic-ui.com/maximize/dropdown-example-selection/");
+		String expectedName="Justen Kitsune";
+		By nameSelectbox=By.xpath("//div[@class='ui fluid selection dropdown']");
+		By allNames=By.xpath("//div[@class='item']");
+		selectItemsinCustomDropDown(expectedName, nameSelectbox, allNames);
+		Assert.assertTrue(driver.findElement(By.xpath("//div[text()='"+expectedName+"']")).isDisplayed());*/
+		
+	/*	driver.get("https://mikerodham.github.io/vue-dropdowns/");
+		String expectedItem="Third Option";
+		By itemSelectbox=By.xpath("//li[@class='dropdown-toggle']");
+		By allItems=By.xpath("//ul/li");
+		selectItemsinCustomDropDown(expectedItem, itemSelectbox, allItems);
+		Assert.assertEquals(driver.findElement(By.xpath("//li[@class='dropdown-toggle']")).getText(), expectedItem);*/
+		
+		// //label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//button
+	/*	driver.get("http://multiple-select.wenzhixin.net.cn/examples#basic.html");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//button")).click();
+		List<WebElement> allMonths=driver.findElements(By.xpath("//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//ul/li"));
+		for(WebElement month:allMonths) {
+			System.out.println(month.getText());
+		}*/
+		driver.get("http://multiple-select.wenzhixin.net.cn/examples#basic.html");
+		Thread.sleep(2000);
+		//WebElement monthSelectbox=driver.findElement(By.xpath("//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//button"));
+		WebElement monthSelectbox=driver.findElement(By.xpath("//button[@class='ms-choice']"));
+		je.executeScript("arguments[0].click();", monthSelectbox);
+		List<WebElement> allMonths=driver.findElements(By.xpath("//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//ul/li"));
+		for(WebElement month:allMonths) {
+			System.out.println(month.getText());
+		}
 	}
 
 	@AfterClass
@@ -190,7 +229,6 @@ public class Topic_10_Selectbox {
 	//	driver.findElement(By.id("games")).click();
 		driver.findElement(parentSelectBox).click();
 		
-		JavascriptExecutor je = (JavascriptExecutor) driver;
 		List<WebElement> Selectbox=driver.findElements(allOptions);
 		for (WebElement option:Selectbox) {
 			if (option.getText().contains(expectedOption)) {

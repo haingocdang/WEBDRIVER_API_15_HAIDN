@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -15,6 +16,9 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import com.sun.rowset.internal.WebRowSetXmlWriter;
+import com.thoughtworks.selenium.Wait.WaitTimedOutException;
 
 import jdk.nashorn.internal.runtime.options.Options;
 
@@ -201,38 +205,56 @@ public class Topic_10_Selectbox {
 		for(WebElement month:allMonths) {
 			System.out.println(month.getText());
 		}*/
-		driver.get("http://multiple-select.wenzhixin.net.cn/examples#basic.html");
-		Thread.sleep(2000);
+		
+
+	/*	driver.get("http://multiple-select.wenzhixin.net.cn/examples#basic.html");
 		
 		List<String> monthList=new ArrayList<String>();
+		monthList.add("January");
 		monthList.add("October");
 		monthList.add("November");
 		monthList.add("December");
+		
+
 		WebElement element = driver.findElement(By.xpath("//iframe"));
 		driver.switchTo().frame(element);
 		WebElement monthSelectbox=driver.findElement(By.xpath("//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//button"));
-		//WebElement monthSelectbox=driver.findElement(By.xpath("//button[@class='ms-choice']"));
-		je.executeScript("arguments[0].click();", monthSelectbox);
-		List<WebElement> allMonths=driver.findElements(By.xpath("//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//ul/li"));
-		
-		for(WebElement month:allMonths) {
-			
-			for(String expectMonth:monthList) {
-				if (month.getText().contains(expectMonth)) {
-					je.executeScript("arguments[0].scrollIntoView(true);",month);
-					Thread.sleep(2000);
-					month.click();
-					
+		String allMonthsXpath="//label[contains(text(),'Group Select')]/parent::div/preceding-sibling::div/label[contains(text(),'Multiple Select')]/following-sibling::div//ul/li";
+		SelectMultipleItemInCustomDropdown(monthSelectbox, allMonthsXpath, monthList);			
+		List<WebElement> selectedItem=driver.findElements(By.xpath("//li[@class='selected']//input"));
+		if (selectedItem.size()>3) {
+			Assert.assertTrue(driver.findElement(By.xpath("//button/span[text()='"+ selectedItem.size() + " of 12 selected']")).isDisplayed());
+		}
+		else if(selectedItem.size()>0 &&selectedItem.size()<=3) {
+			for(String item:monthList) {
+				if (driver.findElement(By.xpath("//button[@class='ms-choice']/span")).getText().contains(item)) {
+					Assert.assertEquals(1, 1);
+					break;
 				}
-				//System.out.println(month.getText());
 			}
-		
-	/*	for(WebElement list:options) {
-			Assert.assertEquals(list.getText(), arrayList.get(options.indexOf(list)));
-			System.out.println(arrayList.get(options.indexOf(list)));
 		}*/
+		
+		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-multiple-search-selection/");
+		
+		List<String> stateList=new ArrayList<String>();
+		stateList.add("Alabama");
+		stateList.add("Delaware");
+		stateList.add("Kentucky");
+		WebElement stateDropdown=driver.findElement(By.xpath("//div[@class='ui fluid multiple search selection dropdown']"));
+		String allStatesXpath="//div[@class='visible menu transition']//span";
+			
+		SelectMultipleItemInCustomDropdown(stateDropdown, allStatesXpath, stateList);
+		
+		List<WebElement> selectedStateList=driver.findElements(By.xpath("//a[@class='ui label']"));
+		for (WebElement selectedStateElement:selectedStateList) {
+			System.out.println(selectedStateElement.getText());
+			Assert.assertEquals(selectedStateElement.getText(), stateList.get(selectedStateList.indexOf(selectedStateElement)));
+			System.out.println("__________");
+			System.out.println(stateList.get(selectedStateList.indexOf(selectedStateElement)));
+		}
+
 	}
-	}
+
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
@@ -259,23 +281,31 @@ public class Topic_10_Selectbox {
 				break;
 			}
 		}
-		
-		/*	driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
-		driver.findElement(By.id("number-button")).click();
-		String option="19";
-		JavascriptExecutor je = (JavascriptExecutor) driver;
-		List <WebElement> numberSelectbox=driver.findElements(By.xpath("//ul[@id='number-menu']/li"));
-		for(WebElement number:numberSelectbox) {
-			if (number.getText().contains(option)) {
-				je.executeScript("arguments[0].scrollIntoView(true);",number);
-				Thread.sleep(2000);
-				number.click();
-				break;
-			}
-			System.out.println(number.getText());
-		}*/
-		
 	}
-	
-	
+		
+	public void SelectMultipleItemInCustomDropdown(WebElement parentDropDown, String allItemsXpath, List<String> expectedItem) throws InterruptedException {
+		je.executeScript("arguments[0].click();", parentDropDown);
+		
+		List<WebElement> allItems=driver.findElements(By.xpath(allItemsXpath));
+		
+		int i=0;
+		for(WebElement item:allItems) {
+			for(String expected:expectedItem) {
+				if (item.getText().equals(expected)) {
+					je.executeScript("arguments[0].scrollIntoView(true);",item);
+					Thread.sleep(1500);
+					item.click();
+					i++;
+					//	je.executeScript("arguments[0].click();",month);
+					Thread.sleep(1500);
+					System.out.println("Number selected="+i);
+					if(expectedItem.size()==i) {
+						break;
+					}
+				//	allItems=driver.findElements(By.xpath(allItemsXpath));
+					break;
+				}
+			}
+		}
+	}
 }

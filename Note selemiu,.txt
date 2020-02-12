@@ -1,0 +1,38 @@
+Automation testing tool
+Automation testing type
+Automation testing framework
+Automation testing level (Pyramic)
+
+Visual studio Code (code dc java)
+
+NOTE: 1 account on 1 project
+truoc khi lam viec, pull
+sau khi lam viec, commmit
+
+git clone https://haingocdang@bitbucket.org/haingocdang/webdriver_api_15_haidn_bitbucket_cty.git
+
+
+id/class/name/tag name/link/partial link --> css cover all
+
+
+
+id/class/name/tag name/link/partial link/css --> Xpath cover all
+
+
+//b[text()='Hands-On Design Patterns with Java']/ancestor::a/following-sibling::div//a[text()='View details']
+
+Visual testing applitools.com
+
+Static/Implicit/Explicit/Fluent Wait
+
+Presence: bat buoc co trong DOM
+Visible: co trong DOM và phai hien thi tren UI
+
+SHOULD'NT AUTO:
+ - CAPCHA
+ - QRCODE
+ - BARCODE
+ - Chart/Pie chart
+ - SMS Authentication
+ - Drag/Drop HTML5
+ - Canvas/SVG/Games

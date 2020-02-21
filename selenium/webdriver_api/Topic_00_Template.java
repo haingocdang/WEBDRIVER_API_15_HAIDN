@@ -10,6 +10,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+
 public class Topic_00_Template {
 	// Khai bao 1 bien driver dai dien cho Selenium Driver
 	WebDriver driver;

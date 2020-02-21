@@ -59,17 +59,6 @@ public class Topic_15_Popup_iframe {
 		Thread.sleep(3000);
 	}
 
-//	@Test
-	public void TC_02_() {
-		driver.get("456789e333w");
-
-	}
-
-//	@Test
-	public void TC_03_() {
-		driver.get("11110");
-
-	}
 
 	@AfterClass
 	public void afterClass() {

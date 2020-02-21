@@ -193,12 +193,6 @@ public class Topic_10_Textbox_Textarera {
 	}
 
 
-//	@Test
-	public void TC_03_() {
-		driver.get("11110");
-
-	}
-
 	public int randomNumber() {
 		Random rand=new Random();
 		int number=rand.nextInt(100000);

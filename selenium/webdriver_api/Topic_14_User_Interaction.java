@@ -13,6 +13,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.sun.glass.ui.Pixels;
 import com.sun.glass.ui.Robot;
@@ -53,12 +54,7 @@ public class Topic_14_User_Interaction {
 		
 	}
 
-//	@Test
-	public void TC_01_() {
-		
-	}
-
-//	@Test
+	@Test
 	public void TC_02_ClickAndHold() {
 		driver.get("https://jqueryui.com/resources/demos/selectable/display-grid.html");
 		List <WebElement> numbers=driver.findElements(By.xpath("//ol[@id='selectable']/li"));
@@ -70,7 +66,7 @@ public class Topic_14_User_Interaction {
 
 	}
 
-//	@Test
+	@Test
 	public void TC_03_ClickAndHoldRamdon() throws InterruptedException {
 		driver.get("https://jqueryui.com/resources/demos/selectable/display-grid.html");
 		List <WebElement> numbers=driver.findElements(By.xpath("//ol[@id='selectable']/li"));
@@ -85,7 +81,7 @@ public class Topic_14_User_Interaction {
 
 	}
 	
-//	@Test
+	@Test
 	public void TC_04_DoubleClick() throws InterruptedException {
 		driver.get("https://automationfc.github.io/basic-form/index.html");
 		action.doubleClick(driver.findElement(By.xpath("//button[text()='Double click me']"))).perform();
@@ -98,7 +94,7 @@ public class Topic_14_User_Interaction {
 
 	}
 	
-//	@Test
+	@Test
 	public void TC_05_RightClick() throws InterruptedException {
 		driver.get("http://swisnl.github.io/jQuery-contextMenu/demo.html");
 		String option="Edit";
@@ -123,7 +119,7 @@ public class Topic_14_User_Interaction {
 		
 	}
 	
-//	@Test
+	@Test
 	public void TC_06_DragAndDrop() throws InterruptedException {
 		driver.get("https://demos.telerik.com/kendo-ui/dragdrop/angular");
 		
@@ -204,7 +200,7 @@ public class Topic_14_User_Interaction {
 		//Move to final position
 		robot.mouseMove(targetLocation.x, targetLocation.y);
 		
-		//Frop
+		//Drop
 		robot.mouseRelease(InputEvent.BUTTON1_MASK);
 		
 		

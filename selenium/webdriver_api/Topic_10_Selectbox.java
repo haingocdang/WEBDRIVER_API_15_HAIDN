@@ -47,7 +47,7 @@ public class Topic_10_Selectbox {
 		
 	}
 
-//	@Test
+	@Test
 	public void TC_01_Dopdownlist() throws InterruptedException {
 		driver.get("https://automationfc.github.io/basic-form/index.html");
 		
@@ -100,7 +100,7 @@ public class Topic_10_Selectbox {
 		
 	}
 
-//	@Test
+	@Test
 	public void TC_02_() throws InterruptedException {
 		driver.get("https://demo.nopcommerce.com/register");
 		

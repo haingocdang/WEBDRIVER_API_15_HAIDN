@@ -34,7 +34,7 @@ public class Topic_11_Radio_Button_Checkbox {
 		
 	}
 
-//	@Test
+	@Test
 	public void TC_01_Buton() throws InterruptedException {
 		driver.get("http://live.demoguru99.com/");
 		String myAccountLinkFooter="//div[@class='footer']//a[text()='My Account']";
@@ -50,7 +50,7 @@ public class Topic_11_Radio_Button_Checkbox {
 		
 	}
 
-//	@Test
+	@Test
 	public void TC_02_Checkbox() throws InterruptedException {
 		driver.get("https://demos.telerik.com/kendo-ui/checkbox/index");
 		//driver.findElement(By.xpath("//input[@id='eq3']")).click();
@@ -65,7 +65,7 @@ public class Topic_11_Radio_Button_Checkbox {
 	
 	
 
-//	@Test
+	@Test
 	public void TC_03_RadioButton() throws InterruptedException {
 		driver.get("https://demos.telerik.com/kendo-ui/radiobutton/index");
 		String xPathLocatorInput="//label[text()='2.0 Petrol, 147kW']/preceding-sibling::input";
@@ -77,7 +77,7 @@ public class Topic_11_Radio_Button_Checkbox {
 		
 	}
 	
-//	@Test
+	@Test
 	public void TC_04_AcceptAlert() throws InterruptedException {
 		driver.get("https://automationfc.github.io/basic-form/index.html");
 		driver.findElement(By.xpath("//button[text()='Click for JS Alert']")).click();
@@ -93,7 +93,7 @@ public class Topic_11_Radio_Button_Checkbox {
 		
 	}
 	
-//	@Test
+	@Test
 	public void TC_05_ConfirmAlert() throws InterruptedException {
 		driver.get("https://automationfc.github.io/basic-form/index.html");
 		driver.findElement(By.xpath("//button[text()='Click for JS Confirm']")).click();
@@ -109,7 +109,7 @@ public class Topic_11_Radio_Button_Checkbox {
 		
 	}
 	
-//	@Test
+	@Test
 	public void TC_06_PromptAlert() throws InterruptedException {
 		driver.get("https://automationfc.github.io/basic-form/index.html");
 		driver.findElement(By.xpath("//button[text()='Click for JS Prompt']")).click();

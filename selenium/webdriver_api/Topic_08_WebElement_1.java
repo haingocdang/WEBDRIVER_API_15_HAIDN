@@ -88,7 +88,7 @@ public class Topic_08_WebElement_1 {
 		System.out.println(value);
 	}
 
-//	 @Test
+	 @Test
 	public void TC_02_Check_Enable() throws InterruptedException {
 		
 /*		WebElement emailTextbox=driver.findElement(email);
@@ -182,23 +182,9 @@ public class Topic_08_WebElement_1 {
 		Assert.assertFalse(ischeckElementEnable(passwordBy));
 		// Assert.assertFalse(ischeckElementEnable(jobRole2SelectBoxBy));
 		
-		By job3DropdownBy=By.id("job3");
-		Assert.assertFalse(ischeckElementEnable(job3DropdownBy));
-		
-		By jobRole2SelectBoxBy=By.id("job2");
-		Select job2Select=new Select(driver.findElement(jobRole2SelectBoxBy));
-		job2Select.selectByValue("manual");
-		Thread.sleep(10000);
-	//	job2Select.
-	//	driver.findElement(jobRole2SelectBoxBy)
-		String value=job2Select.getFirstSelectedOption().getText();
-		System.out.println(value);
-	//	driver.findElement(jobRole2SelectBoxBy).get
-		
-	
-	}
+}
 
-//	@Test
+	@Test
 	public void TC_03_IsSelected() throws InterruptedException {
 		
 		driver.findElement(radioUnder18).click();

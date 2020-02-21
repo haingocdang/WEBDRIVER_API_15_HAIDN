@@ -164,7 +164,7 @@ public class Topic_14_User_Interaction {
 		//Setup Robot
 		java.awt.Robot robot ;
 		robot= new java.awt.Robot();
-		robot.setAutoDelay(70);
+		robot.setAutoDelay(90);
 		
 		//Get Size elements		
 		Dimension sourceSize=source.getSize();
